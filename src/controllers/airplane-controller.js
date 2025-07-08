@@ -1,13 +1,12 @@
 const { StatusCodes } = require("http-status-codes");
 const { AirplaneService } = require("../services");
-
-const { SuccessResponse, ErrorResponse } = require("../utils/common");
+ 
 
 async function createAirplane(req, res) {
   try {
     const airplane = await AirplaneService.create({
       modelNumber: req.body.modelNumber,
-      capacity: req.body.capacity,
+      capacity: req.body.capacity, 
     });
 
     SuccessResponse.data = airplane;
