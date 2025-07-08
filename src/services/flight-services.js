@@ -81,11 +81,40 @@ async function getAllFlights(query) {
     } catch (error) {
         throw new AppError("Cannot fetch data of all the flights", StatusCodes.INTERNAL_SERVER_ERROR)
     }
-
 }
 
+
+
+async function getFlight(id) {
+    try {
+
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch (error) {
+
+        if (error instanceof UniqueConstraintError || error instanceof ValidationError) {
+            const explanations = error.errors.map(err => err.message);
+            throw new AppError(explanations.join(", "), StatusCodes.BAD_REQUEST);
+        }
+
+        throw new AppError(error.message, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+async function updateSeats(data) {
+    try {
+        const response = await flightRepository.updateRemainingSeats(data.flightId, data.seats, data.descrese)
+        return response;
+
+    } catch (error) {
+        console.log(error)
+        throw new AppError("Can not update the data of the flights", StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
 
 module.exports = {
     createFlight,
     getAllFlights,
+    getFlight,
+    updateSeats
 }   

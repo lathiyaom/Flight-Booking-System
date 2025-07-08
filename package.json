@@ -10,6 +10,7 @@
     "dev": "npx nodemon src/index.js"
   },
   "dependencies": {
+    "axios": "^1.10.0",
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
     "http-status-codes": "^2.3.0",

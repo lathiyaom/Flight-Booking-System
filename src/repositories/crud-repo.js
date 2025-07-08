@@ -43,7 +43,7 @@ class CrudRepository {
       }
       return response;
     } catch (error) {
-      Logger.error("Something went wrong in the CrudRepo : get");
+      Logger.error("Something went wrong in the CrudRepo : get", error);
       throw error;
     }
   }

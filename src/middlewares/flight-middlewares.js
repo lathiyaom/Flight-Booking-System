@@ -17,7 +17,7 @@ const requiredFields = {
 
 // Helper to check data types
 function isValidType(value, type) {
-    
+
     if (type === 'date') {
         return !isNaN(new Date(value).getTime());
     }
@@ -46,6 +46,16 @@ function validateCreateRequest(req, res, next) {
     next();
 }
 
+function validateUpdateSeatsRequest(req, res, next) {
+    if (!req.body.seats) {
+        ErrorResponse.message = "Somthing went wrong while updateing flight";
+        ErrorResponse.error = new AppError(["flightid is not found into the incoming request"], StatusCodes.BAD_REQUEST);
+        return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+    }
+    next();
+}
+
 module.exports = {
     validateCreateRequest,
+    validateUpdateSeatsRequest
 };
